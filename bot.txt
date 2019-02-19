@@ -1,0 +1,72 @@
+import pyautogui
+import PIL 
+
+import time
+
+from numpy import *
+
+
+
+class Cordinates():
+
+    replayBtn = (305, 340)
+
+    dinosaur = (50, 90)
+
+    # x = 150 (cordinate to check for tree)
+
+    # y = 170 (cordinate of half tree
+
+
+
+def restartGame():
+
+    pyautogui.click(Cordinates.replayBtn)
+
+
+
+def pressSpace():
+
+    pyautogui.keyDown('space')
+
+    time.sleep(0.05)
+
+    print('Jump')
+
+    pyautogui.keyUp('space')
+
+
+
+def imageGrab():
+
+    box = (Cordinates.dinosaur[0] + 150, Cordinates.dinosaur[1], Cordinates.dinosaur[0] + 170, Cordinates.dinosaur[1]+30)
+
+    image = ImageGrab.grab(box)
+
+    grayImage = ImageOps.grayscale(image)
+
+    a = array(grayImage.getcolors())
+
+    print(a.sum())
+
+    return(a.sum())
+
+
+
+
+
+def main():
+
+    restartGame()
+
+    while True:
+
+        if(imageGrab() != 1027):
+
+            pressSpace()
+
+            time.sleep(0.1)
+
+
+
+main()
